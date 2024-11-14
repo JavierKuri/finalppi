@@ -5,11 +5,11 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Iniciar sesión</title>
 </head>
 <body>
-    <div class="container">
-        <nav class="navbar navbar-expand-sm bg-primary navbar-light fixed-top">
+    <div class="container-fluid">
+        <nav class="navbar navbar-expand-sm bg-primary navbar-light mb-5 sticky-top">
             <div class="container-fluid">
             <a class="navbar-brand" href="../index.html">
                 <img src="../IMG/control.png" alt="LOGO" style="width:40px;" class="rounded-pill"> 
@@ -28,7 +28,7 @@
                         <a class="nav-link" href="carrito.php">Carrito</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="iniciar.php">Iniciar sesión</a>
+                        <a class="nav-link active" href="iniciar.php">Iniciar sesión</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="cerrar.php">Cerrar sesión</a>
