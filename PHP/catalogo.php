@@ -1,4 +1,5 @@
 <?php
+    session_start();
     $con=mysqli_connect("localhost", "root", "", "finalppi");
     if (mysqli_connect_errno()) {
         echo "Failed to connect to MySQL: " . mysqli_connect_error();
@@ -18,68 +19,62 @@
 </head>
 <body>
     <div class="container-fluid">
-        <nav class="navbar navbar-expand-sm bg-primary navbar-light mb-5 sticky-top">
+    <nav class="navbar navbar-expand-sm bg-primary navbar-light mb-5 sticky-top">
             <div class="container-fluid">
-            <a class="navbar-brand" href="../index.html">
-                <img src="../IMG/control.png" alt="LOGO" style="width:40px;" class="rounded-pill"> 
-            </a>
-            <div class="container-fluid">
-                <a class="navbar-text h1 text-decoration-none" href="../index.html">TIENDA DE JUEGOS</a>
-            </div>
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link active" href="catalogo.php">Catalogo de productos</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="historial.php">Historial de compras</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="carrito.php">Carrito</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="iniciar.php">Iniciar sesión</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="cerrar.php">Cerrar sesión</a>
-                    </li>
-                </ul>
+                <a class="navbar-brand" href="../index.html">
+                    <img src="../IMG/control.png" alt="LOGO" style="width:40px;" class="rounded-pill"> 
+                </a>
+                <div class="container-fluid">
+                    <a class="navbar-text h1 text-decoration-none" href="../index.html">TIENDA DE JUEGOS</a>
+                </div>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="collapsibleNavbar">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="catalogo.php">Catalogo de productos</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="historial.php">Historial de compras</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="carrito.php">Carrito</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="iniciar.php">Iniciar sesión</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="cerrar.php">Cerrar sesión</a>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </nav>
-        <div class="container">
-            <div class="table-responsive"> 
-                <table class="table table-hover"> 
-                    <thead>
-                        <tr>
-                            <td>Titulo</td>
-                            <td>Descripción</td>
-                            <td></td>
-                            <td>Precio</td>
-                            <td>Desarrollador</td>
-                            <td>ESRB</td>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php
-                            while ($row = mysqli_fetch_array($result)) {
-                                $imageData = base64_encode($row['portada']);
-                                echo "<tr>
-                                        <td class='table-secondary h5'>" . $row['titulo'] . "</td>
-                                        <td>" . $row['descripcion'] . "</td>
-                                        <td><img class='rounded' src='data:image/jpeg;base64,{$imageData}' alt='Portada' style='width:200px;height:auto;'/></td>
-                                        <td>$" . $row['precio'] . "</td>
-                                        <td>" . $row['desarrollador'] . "</td>
-                                        <td>" . $row['ESRB'] . "</td>
-                                        <td>
-                                            <form action='' method='post'>
-                                                <input type='hidden' name='id_juego'/>
-                                                <button type='submit' class='btn btn-primary'>Agregar al carrito</button>
-                                            </form>
-                                        </td>
-                                    </tr>";
-                            }
-                        ?>
-                    </tbody>
-                </table>
+        <div class="container my-5">
+            <div class="row justify-content-center">
+                <?php
+                    while ($row = mysqli_fetch_array($result)) {
+                        $imageData = base64_encode($row['portada']);
+                        echo "
+                        <div class='col-12 col-sm-6 col-md-4 col-lg-3 mb-4'>
+                            <div class='card h-100'>
+                                <img class='card-img-top' src='data:image/jpeg;base64,{$imageData}' alt='Portada'>
+                                <div class='card-body'>
+                                    <h5 class='card-title'>" . $row['titulo'] . "</h5>
+                                    <p class='card-text'>" . $row['descripcion'] . "</p>
+                                    <p class='card-text'><strong>Precio: </strong>$" . $row['precio'] . "</p>
+                                    <p class='card-text'><strong>Desarrollador: </strong>" . $row['desarrollador'] . "</p>
+                                    <p class='card-text'><strong>ESRB: </strong>" . $row['ESRB'] . "</p>
+                                    <form action='' method='post'>
+                                        <input type='hidden' name='id_juego' value=''/>
+                                        <button type='submit' cla y'>Agregar al carrito</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>";
+                    }
+                ?>
             </div>
         </div>
     </div>

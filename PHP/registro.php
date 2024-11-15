@@ -1,29 +1,31 @@
 <?php
     session_start();
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-        if (empty($_POST['correo']) || empty($_POST['contra'])) {
+        if (empty($_POST['nombre']) || empty($_POST['correo']) || empty($_POST['contra'] || empty($_POST['fecha_nacimiento']) || empty($_POST['tarjeta']) || empty($_POST['direccion']))) {
             echo "<div class='alert alert-danger'>Por favor complete todos los campos.</div>";
         } else {
             $con=mysqli_connect("localhost", "root", "", "finalppi");
             if (mysqli_connect_errno()) {
                 echo "<div class='alert alert-danger'>Error de conexión con MySQL: $mysqli_connect_error().</div>";
             }
+            $nombre = mysqli_real_escape_string($con,$_POST['nombre']);
             $correo = mysqli_real_escape_string($con,$_POST['correo']);
             $contra = mysqli_real_escape_string($con,$_POST['contra']);
-            $sql = "SELECT * FROM usuarios WHERE correo='${correo}' AND contrasena='${contra}';";
-            $result = mysqli_query($con, $sql);
-            mysqli_close($con); 
-            if($result->num_rows>0) {
-                $result = $result-> fetch_assoc();
-                $_SESSION['id_usuario']=$result['id_usuario'];
-                echo "<div class='alert alert-success'>Inicio de sesión realizado correctamente.</div>";
+            $fecha_nacimiento = mysqli_real_escape_string($con,$_POST['fecha_nacimiento']);
+            $tarjeta = mysqli_real_escape_string($con,$_POST['tarjeta']);
+            $direccion = mysqli_real_escape_string($con,$_POST['direccion']);
+            $sql = "INSERT INTO usuarios (nombre, correo, contrasena, fecha_nacimiento, num_tarjeta, direccion) VALUES ('$nombre', '$correo', '$contra', '$fecha_nacimiento', '$tarjeta', '$direccion');";
+
+            if (mysqli_query($con, $sql)) {
+                $_SESSION['id_usuario'] = mysqli_insert_id($con);
+                echo "<div class='alert alert-success'>Registro realizado correctamente</div>"; 
             } else {
-                echo "<div class='alert alert-danger'>Correo o contraseña incorrectos, volver a intentar.</div>";
-            }  
+                echo "<div class='alert alert-danger'>Error al realizar la inserción: " . mysqli_error($con) . "</div>";
+            }
+            mysqli_close($con); 
         }
     }
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -31,7 +33,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Iniciar sesión</title>
+    <title>Registro de usuario</title>
 </head>
 <body>
     <div class="container-fluid">
@@ -69,17 +71,24 @@
         </nav>
 
         <div class="container">
-            <h1 class="display-3">Ingrese correo y contraseña por favor</h1>
-            <form action="iniciar.php" method="post">
+            <h1 class="display-3">Ingrese datos para crear su cuenta</h1>
+            <form action="registro.php" method="post">
+                <label for="nombre" class="form-label">Nombre:</label>
+                <input type="text" class="form-control" name="nombre" id="nombre" <?php echo isset($_SESSION['id_usuario']) ? 'disabled' : ''; ?>>
                 <label for="correo" class="form-label">Correo:</label>
                 <input type="email" class="form-control" name="correo" id="correo" <?php echo isset($_SESSION['id_usuario']) ? 'disabled' : ''; ?>>
                 <label for="contra" class="form-label">Contraseña:</label>
                 <input type="password" class="form-control" name="contra" id="contra" <?php echo isset($_SESSION['id_usuario']) ? 'disabled' : ''; ?>>
-                <button type="submit" class="btn btn-primary my-5" <?php echo isset($_SESSION['id_usuario']) ? 'disabled' : ''; ?>>Iniciar sesión</button>
+                <label for="fecha_nacimiento" class="form-label">Fecha de nacimiento:</label>
+                <input type="date" class="form-control" name="fecha_nacimiento" id="fecha_nacimiento" <?php echo isset($_SESSION['id_usuario']) ? 'disabled' : ''; ?>>
+                <label for="tarjeta" class="form-label">Tarjeta:</label>
+                <input type="varchar" class="form-control" name="tarjeta" id="tarjeta" <?php echo isset($_SESSION['id_usuario']) ? 'disabled' : ''; ?>>
+                <label for="correo" class="form-label">Dirección:</label>
+                <input type="varchar" class="form-control" name="direccion" id="direccion" <?php echo isset($_SESSION['id_usuario']) ? 'disabled' : ''; ?>>
+                <button type="submit" class="btn btn-primary my-5" <?php echo isset($_SESSION['id_usuario']) ? 'disabled' : ''; ?>>Registrar usuario</button>
             </form>
-            <h1 class="display-6">¿No tienes cuenta?</h1>
-            <button class = "btn btn-secondary my-5" href="registro.php" <?php echo isset($_SESSION['id_usuario']) ? 'disabled' : ''; ?>>Registrate como usuario aquí</button>
         </div>
+
     </div>
 </body>
 </html>
