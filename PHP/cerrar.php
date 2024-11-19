@@ -22,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 </head>
 <body>
     <div class="container-fluid">
-    <nav class="navbar navbar-expand-sm bg-primary navbar-light mb-5 sticky-top">
+    <nav class="navbar navbar-expand-sm bg-primary navbar-dark mb-5 sticky-top">
             <div class="container-fluid">
                 <a class="navbar-brand" href="../index.html">
                     <img src="../IMG/control.png" alt="LOGO" style="width:40px;" class="rounded-pill"> 
@@ -55,7 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             </div>
         </nav>
         <div class="container">
-            <h1 class="display-3">¿Estas seguro que quieres cerrar sesión?</h1>
+            <h1 class="display-3 my-5">¿Estas seguro que quieres cerrar sesión?</h1>
             <form action="cerrar.php" method="post">
                 <button type="submit" class="btn btn-primary">Cerrar sesión</button>
             </form>

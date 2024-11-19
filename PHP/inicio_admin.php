@@ -62,7 +62,7 @@
                             <a class="nav-link" href="mostrar_historial.php">Mostrar historial de usuario</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="inicio_admin.php">Iniciar sesión</a>
+                            <a class="nav-link active" href="inicio_admin.php">Iniciar sesión</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="cerrar_admin.php">Cerrar sesión</a>

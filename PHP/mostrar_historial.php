@@ -49,7 +49,7 @@
                             <a class="nav-link" href="modificar_producto.php">Modificar producto</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="mostrar_historial.php">Mostrar historial de usuario</a>
+                            <a class="nav-link active" href="mostrar_historial.php">Mostrar historial de usuario</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="inicio_admin.php">Iniciar sesión</a>

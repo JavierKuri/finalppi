@@ -25,7 +25,7 @@
 </head>
 <body>
     <div class="container-fluid">
-    <nav class="navbar navbar-expand-sm bg-primary navbar-light mb-5 sticky-top">
+    <nav class="navbar navbar-expand-sm bg-primary navbar-dark mb-5 sticky-top">
             <div class="container-fluid">
                 <a class="navbar-brand" href="../index.html">
                     <img src="../IMG/control.png" alt="LOGO" style="width:40px;" class="rounded-pill"> 

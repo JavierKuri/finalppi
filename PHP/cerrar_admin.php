@@ -48,14 +48,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             <a class="nav-link" href="inicio_admin.php">Iniciar sesión</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="cerrar_admin.php">Cerrar sesión</a>
+                            <a class="nav-link active" href="cerrar_admin.php">Cerrar sesión</a>
                         </li>
                     </ul>
                 </div>
             </div>
         </nav>
         <div class="container">
-            <h1 class="display-3">¿Estas seguro que quieres cerrar sesión de administrador?</h1>
+            <h1 class="display-3 my-5">¿Estas seguro que quieres cerrar sesión de administrador?</h1>
             <form action="cerrar_admin.php" method="post">
                 <button type="submit" class="btn btn-secondary">Cerrar sesión</button>
             </form>

@@ -57,7 +57,7 @@
                 <div class="collapse navbar-collapse" id="collapsibleNavbar">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link" href="agregar_producto.php">Agregar producto</a>
+                            <a class="nav-link active" href="agregar_producto.php">Agregar producto</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="modificar_producto.php">Modificar producto</a>
