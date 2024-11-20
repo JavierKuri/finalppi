@@ -6,6 +6,20 @@
     }
     $sql = "SELECT * FROM juegos order by titulo;";
     $result = mysqli_query($con, $sql);
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        if (isset($_SESSION['id_usuario'])) {
+            $id_usuario = mysqli_real_escape_string($con, $_SESSION['id_usuario']);
+            $id_juego = mysqli_real_escape_string($con, $_POST['id_juego']);
+            $sql = "INSERT INTO carrito (id_usuario, id_juego) VALUES ('$id_usuario', '$id_juego')";
+            if (mysqli_query($con, $sql)) {
+                echo "<div class='alert alert-success'>Juego agregado al carrito.</div>";
+            } else {
+                echo "<div class='alert alert-danger'>Error al agregar el juego al carrito.</div>";
+            }
+        } else {
+            echo "<div class='alert alert-warning'>Debes iniciar sesión para agregar juegos al carrito.</div>";
+        }
+    }
     mysqli_close($con);   
 ?>
 <!DOCTYPE html>
@@ -66,9 +80,9 @@
                                     <p class='card-text'><strong>Precio: </strong>$" . $row['precio'] . "</p>
                                     <p class='card-text'><strong>Desarrollador: </strong>" . $row['desarrollador'] . "</p>
                                     <p class='card-text'><strong>ESRB: </strong>" . $row['ESRB'] . "</p>
-                                    <form action='' method='post'>
-                                        <input type='hidden' name='id_juego' value=''/>
-                                        <button type='submit' cla y'>Agregar al carrito</button>
+                                    <form action='catalogo.php' method='post'>
+                                        <input type='hidden' name='id_juego' value='" . $row['id_juego'] . "''/>
+                                        <button type='submit' class='btn btn-primary my-5'>Agregar al carrito</button>
                                     </form>
                                 </div>
                             </div>

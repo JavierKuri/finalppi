@@ -58,26 +58,26 @@
             </div>
         </nav>
         <div class="table-responsive container">
-        <h1 class="display-3 my-5">Historial de compras</h1>
-        <table class="table table-primary table-striped">
-            <thead>
-                <tr>
-                    <td>ID de compra</td>
-                    <td>Titulo</td>
-                    <td>Precio</td>
-                </tr>
-            </thead>
-            <tbody>
-            <?php
-                if(isset($result)) {
-                    while($row = mysqli_fetch_array($result)) {
-                        echo "<tr><td class='table-secondary'>" . $row['id_compra'] . "</td><td>" . $row['titulo'] . "</td><td>" . $row['precio'] . "</td></tr>";
+            <h1 class="display-3 my-5">Historial de compras</h1>
+            <table class="table table-primary table-striped">
+                <thead>
+                    <tr>
+                        <td>ID de compra</td>
+                        <td>Titulo</td>
+                        <td>Precio</td>
+                    </tr>
+                </thead>
+                <tbody>
+                <?php
+                    if(isset($result)) {
+                        while($row = mysqli_fetch_array($result)) {
+                            echo "<tr><td class='table-secondary'>" . $row['id_compra'] . "</td><td>" . $row['titulo'] . "</td><td>" . $row['precio'] . "</td></tr>";
+                        }
                     }
-                }
-            ?>
-            </tbody>
-        </table>
-    </div>
+                ?>
+                </tbody>
+            </table>
+        </div>
     </div>
 </body>
 </html>

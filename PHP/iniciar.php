@@ -78,7 +78,7 @@
                 <button type="submit" class="btn btn-primary my-5" <?php echo isset($_SESSION['id_usuario']) ? 'disabled' : ''; ?>>Iniciar sesión</button>
             </form>
             <h1 class="display-6">¿No tienes cuenta?</h1>
-            <a class ="btn btn-secondary my-5" href="registro.php" <?php echo isset($_SESSION['id_usuario']) ? 'disabled' : ''; ?>>Registrate como usuario aquí</a>
+            <button class ="btn btn-secondary my-5" onclick="window.location.href='registro.php'" <?php echo isset($_SESSION['id_usuario']) ? 'disabled' : ''; ?>>Registrate como usuario aquí</a>
         </div>
     </div>
 </body>

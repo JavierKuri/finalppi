@@ -1,3 +1,19 @@
+<?php
+    session_start();
+    if(isset($_SESSION['id_usuario'])) {
+        $con=mysqli_connect("localhost", "root", "", "finalppi");
+        if (mysqli_connect_errno()) {
+            echo "Failed to connect to MySQL: " . mysqli_connect_error();
+        }
+        $id_usuario = mysqli_real_escape_string($con,$_SESSION['id_usuario']);
+        $sql = "SELECT * FROM carrito, juegos, usuarios WHERE carrito.id_usuario = usuarios.id_usuario 
+                                                        AND carrito.id_juego = juegos.id_juego
+                                                        AND usuarios.id_usuario = $id_usuario
+                                                        ORDER BY id_carrito DESC;";
+        $result = mysqli_query($con, $sql);
+        mysqli_close($con); 
+    }
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -41,6 +57,28 @@
                 </div>
             </div>
         </nav>
+        <div class="table-responsive container">
+            <h1 class="display-3 my-5">Carrito de compras</h1>
+            <table class="table table-primary table-striped">
+                <thead>
+                    <tr>
+                        <td>ID de carrito</td>
+                        <td>Titulo</td>
+                        <td>Precio</td>
+                    </tr>
+                </thead>
+                <tbody>
+                <?php
+                    if(isset($result)) {
+                        while($row = mysqli_fetch_array($result)) {
+                            echo "<tr><td class='table-secondary'>" . $row['id_carrito'] . "</td><td>" . $row['titulo'] . "</td><td>" . $row['precio'] . "</td></tr>";
+                        }
+                    }
+                ?>
+                </tbody>
+            </table>
+            <button class ="btn btn-primary my-5" onclick="window.location.href='pago.php'" <?php echo (isset($_SESSION['id_usuario']) && $result->num_rows > 0) ? '' : 'disabled'; ?>>Proceder al pago</a>
+        </div>
     </div>
 </body>
 </html>
