@@ -5,6 +5,18 @@
         if (mysqli_connect_errno()) {
             echo "Failed to connect to MySQL: " . mysqli_connect_error();
         }
+
+        if (isset($_POST['eliminar']) && isset($_POST['id_carrito'])) {
+            $id_carrito = mysqli_real_escape_string($con, $_POST['id_carrito']);
+            $id_usuario = mysqli_real_escape_string($con,$_SESSION['id_usuario']);
+            $sql = "DELETE FROM carrito WHERE id_carrito = '$id_carrito' AND id_usuario = '$id_usuario'";
+            if (mysqli_query($con, $sql)) {
+                echo "<div class='alert alert-success'>Juego eliminado del carrito correctamente</div>"; 
+            } else {
+                echo "<div class='alert alert-danger'>Error al eliminar juego del carrito</div>"; 
+            }
+        }
+
         $id_usuario = mysqli_real_escape_string($con,$_SESSION['id_usuario']);
         $sql = "SELECT * FROM carrito, juegos, usuarios WHERE carrito.id_usuario = usuarios.id_usuario 
                                                         AND carrito.id_juego = juegos.id_juego
@@ -74,7 +86,13 @@
                 <?php
                     if(isset($result)) {
                         while($row = mysqli_fetch_array($result)) {
-                            echo "<tr><td class='table-secondary'>" . $row['id_carrito'] . "</td><td>" . $row['titulo'] . "</td><td>" . $row['precio'] . "</td></tr>";
+                            echo "<tr><td class='table-secondary'>" . $row['id_carrito'] . "</td><td>" 
+                            . $row['titulo'] . "</td><td>" . $row['precio'] . "</td>
+                            <td><form action='carrito.php' method='post'>
+                                    <input type='hidden' name='id_carrito' value='" . $row['id_carrito']. "' />
+                                    <button type='submit' name='eliminar' class='btn btn-danger btn-sm'>Eliminar</button>
+                                </form></td>
+                            </tr>";
                         }
                     }
                 ?>
