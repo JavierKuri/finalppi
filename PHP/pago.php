@@ -21,9 +21,8 @@
                     $sql = "DELETE FROM carrito WHERE id_usuario = " . $result['id_usuario'] . ";";
                     if (mysqli_query($con, $sql)) {
                         echo "<div class='alert alert-success'>Pago realizado correctamente, regresando a catálogo.</div>";
-                        echo "<meta http-equiv='refresh' content='5;url=catalogo.php'>";
-                        header("Location: catalogo.php");
-                        exit();
+                        echo "<meta http-equiv='refresh' content='3;url=catalogo.php'>";
+                        
                     } else {
                         echo "<div class='alert alert-danger'>Error en inserción en tabla de compras." . mysqli_error($con) . "</div>";
                     }
@@ -75,6 +74,9 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="cerrar.php">Cerrar sesión</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link <?php echo isset($_SESSION['id_usuario']) ? '' : 'disabled'; ?>" href="informacion.php">Información de usuario</a>
                         </li>
                     </ul>
                 </div>

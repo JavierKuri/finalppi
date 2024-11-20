@@ -50,6 +50,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         <li class="nav-item">
                             <a class="nav-link active" href="cerrar.php">Cerrar sesión</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link <?php echo isset($_SESSION['id_usuario']) ? '' : 'disabled'; ?>" href="informacion.php">Información de usuario</a>
+                        </li>
                     </ul>
                 </div>
             </div>
